@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RPS Online 98 — Join a friend's room</title>
+<!--
+  join.html — the other end of PLAY A FRIEND.
+
+  The app shares https://.../join.html?c=CODE rather than a bare rps98://
+  link, because a bare scheme is dead text to anyone who does not have the
+  game installed — which is most people a player invites. This page turns the
+  same link into: open the app if it is there, install it if it is not, and
+  read the code out either way.
+
+  Deliberately static: no fonts, no CDN, no analytics. The privacy policy
+  describes this site as static and it must stay true.
+
+  The code is shown BEFORE anything is attempted. The redirect is the part
+  that fails — on a locked-down browser, in an in-app webview, on a desktop —
+  and the manual fallback must already be on screen when it does.
+-->
+<style>
+  body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+         max-width: 720px; margin: 0 auto; padding: 24px 16px; line-height: 1.6;
+         color: #1c2333; background: #fafaf7; }
+  h1 { font-size: 1.6em; } h2 { font-size: 1.2em; margin-top: 1.6em; }
+  .he { direction: rtl; text-align: right; border-top: 2px solid #245d33; margin-top: 2.5em; padding-top: 1em; }
+  a { color: #245d33; }
+  .code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+          font-size: 2.6em; letter-spacing: 0.18em; font-weight: 700;
+          background: #1c2333; color: #ffc83c; border-radius: 12px;
+          padding: 14px 10px; text-align: center; margin: 18px 0; }
+  .btn { display: block; text-align: center; text-decoration: none;
+         background: #ffc83c; color: #241a05; font-weight: 700; font-size: 1.15em;
+         border-radius: 12px; padding: 14px 16px; margin: 14px 0; }
+  .stores { margin: 18px 0; }
+  .stores a { display: inline-block; margin: 0 12px 8px 0; }
+  .muted { color: #566; font-size: 0.95em; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<h1>Someone wants to fight you</h1>
+<p>They opened a private room in <strong>RPS Online 98</strong>. Your room code:</p>
+
+<div class="code" id="code">-----</div>
+
+<a class="btn" id="open" href="#">OPEN IN THE APP</a>
+<p class="muted">Already have the game? Tap the button. If nothing happens, open
+RPS Online 98, tap PLAY → FRIEND → I HAVE A CODE and type the code above.</p>
+
+<div class="stores hidden" id="stores">
+  <h2>Don't have the game yet?</h2>
+  <a id="ios" href="index.html">App Store</a>
+  <a id="android" href="#">Google Play</a>
+</div>
+
+<p class="muted"><a href="index.html">RPS Online 98 — support &amp; legal</a></p>
+
+<div class="he" dir="rtl" lang="he">
+<h1>מישהו רוצה להילחם בך</h1>
+<p>נפתח עבורך חדר פרטי ב־<strong>RPS Online 98</strong>. קוד החדר שלך מופיע למעלה.</p>
+<p>יש לך כבר את המשחק? לחץ על הכפתור. אם לא קרה כלום — פתח את RPS Online 98,
+בחר PLAY ← FRIEND ← I HAVE A CODE והקלד את הקוד.</p>
+</div>
+
+<script>
+  // Store links. Android is deterministic from the application id; the iOS
+  // one gets its real App Store URL at first submission — until then it
+  // points at the support page rather than at a 404.
+  var ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.rpsonline98.game';
+  var IOS_URL = 'index.html';   // TODO: https://apps.apple.com/app/id<APP_ID> once assigned
+
+  // Must match DeepLink.Scheme, ProjectSettings' iOSURLSchemes and
+  // AndroidDeepLink.Scheme. tests/unit/deeplink.test.mjs pins all four.
+  var SCHEME = 'rps98';
+
+  function codeFromQuery() {
+    var m = /[?&]c=([^&#]*)/.exec(window.location.search);
+    if (!m) return '';
+    return decodeURIComponent(m[1]).toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8);
+  }
+
+  var code = codeFromQuery();
+  var codeEl = document.getElementById('code');
+  var openEl = document.getElementById('open');
+  var storesEl = document.getElementById('stores');
+
+  document.getElementById('android').href = ANDROID_URL;
+  document.getElementById('ios').href = IOS_URL;
+
+  if (code.length < 4) {
+    // No usable code — nothing to open, so lead with the install instead of
+    // firing a scheme that cannot work.
+    codeEl.textContent = '?????';
+    openEl.classList.add('hidden');
+    storesEl.classList.remove('hidden');
+  } else {
+    codeEl.textContent = code;
+    var appUrl = SCHEME + '://join/' + code;
+    openEl.href = appUrl;
+
+    function tryOpen() {
+      window.location.href = appUrl;
+      // Still here a moment later? Either the app is not installed or the
+      // browser refused the scheme — either way the stores are the next move.
+      setTimeout(function () {
+        if (document.visibilityState === 'visible') storesEl.classList.remove('hidden');
+      }, 1200);
+    }
+
+    openEl.addEventListener('click', function (e) { e.preventDefault(); tryOpen(); });
+
+    // One automatic attempt, only for a page the user is actually looking at:
+    // navigating to an unregistered scheme in a background tab is how you get
+    // a system error dialog with no context.
+    if (document.visibilityState === 'visible') tryOpen();
+  }
+</script>
+</body>
+</html>
