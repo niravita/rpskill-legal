@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RPS Online 98 — Join a friend's room</title>
+<title>RPSKill — Join a friend's room</title>
 <!--
   join.html — the other end of PLAY A FRIEND.
 
-  The app shares https://.../join.html?c=CODE rather than a bare rps98://
+  The app shares https://.../join.html?c=CODE rather than a bare rpskill://
   link, because a bare scheme is dead text to anyone who does not have the
   game installed — which is most people a player invites. This page turns the
   same link into: open the app if it is there, install it if it is not, and
@@ -42,13 +42,13 @@
 </head>
 <body>
 <h1>Someone wants to fight you</h1>
-<p>They opened a private room in <strong>RPS Online 98</strong>. Your room code:</p>
+<p>They opened a private room in <strong>RPSKill</strong>. Your room code:</p>
 
 <div class="code" id="code">-----</div>
 
 <a class="btn" id="open" href="#">OPEN IN THE APP</a>
 <p class="muted">Already have the game? Tap the button. If nothing happens, open
-RPS Online 98, tap PLAY → FRIEND → I HAVE A CODE and type the code above.</p>
+RPSKill, tap PLAY → FRIEND → I HAVE A CODE and type the code above.</p>
 
 <div class="stores hidden" id="stores">
   <h2>Don't have the game yet?</h2>
@@ -56,12 +56,12 @@ RPS Online 98, tap PLAY → FRIEND → I HAVE A CODE and type the code above.</p
   <a id="android" href="#">Google Play</a>
 </div>
 
-<p class="muted"><a href="index.html">RPS Online 98 — support &amp; legal</a></p>
+<p class="muted"><a href="index.html">RPSKill — support &amp; legal</a></p>
 
 <div class="he" dir="rtl" lang="he">
 <h1>מישהו רוצה להילחם בך</h1>
-<p>נפתח עבורך חדר פרטי ב־<strong>RPS Online 98</strong>. קוד החדר שלך מופיע למעלה.</p>
-<p>יש לך כבר את המשחק? לחץ על הכפתור. אם לא קרה כלום — פתח את RPS Online 98,
+<p>נפתח עבורך חדר פרטי ב־<strong>RPSKill</strong>. קוד החדר שלך מופיע למעלה.</p>
+<p>יש לך כבר את המשחק? לחץ על הכפתור. אם לא קרה כלום — פתח את RPSKill,
 בחר PLAY ← FRIEND ← I HAVE A CODE והקלד את הקוד.</p>
 </div>
 
@@ -69,12 +69,12 @@ RPS Online 98, tap PLAY → FRIEND → I HAVE A CODE and type the code above.</p
   // Store links. Android is deterministic from the application id; the iOS
   // one gets its real App Store URL at first submission — until then it
   // points at the support page rather than at a 404.
-  var ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.rpsonline98.game';
+  var ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.rpskill.game';
   var IOS_URL = 'index.html';   // TODO: https://apps.apple.com/app/id<APP_ID> once assigned
 
   // Must match DeepLink.Scheme, ProjectSettings' iOSURLSchemes and
   // AndroidDeepLink.Scheme. tests/unit/deeplink.test.mjs pins all four.
-  var SCHEME = 'rps98';
+  var SCHEME = 'rpskill';
 
   function codeFromQuery() {
     var m = /[?&]c=([^&#]*)/.exec(window.location.search);
