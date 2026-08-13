@@ -16,7 +16,7 @@
 </head>
 <body>
 <h1>RPSKill — Privacy Policy</h1>
-<p class="updated">Version 1.1 — Last updated: August 9, 2026</p>
+<p class="updated">Version 1.6 — Last updated: August 12, 2026</p>
 
 <p>RPSKill ("the game") is a rock-paper-scissors battle game. This policy
 describes what data the game handles and how.</p>
@@ -26,8 +26,24 @@ describes what data the game handles and how.</p>
   <li><strong>An anonymous account.</strong> On first launch the game creates an
       anonymous account (a random identifier). No email address, phone number,
       name, or password is collected, and no sign-up is required.</li>
+  <li><strong>A Facebook connection, only if you choose one.</strong> Connecting
+      Facebook is entirely optional &mdash; the game is fully playable without
+      it, and nothing asks you to. Its only purpose is to let you keep your
+      account if you lose or replace your phone, because an anonymous account
+      lives on the device and cannot otherwise be recovered by anyone,
+      including us. If you connect, we receive from Facebook your Facebook
+      user identifier, your name, and your profile picture, and we store the
+      identifier alongside your existing account. Your name is used as your
+      in-game nickname and your picture as your in-game profile photo, both of
+      which you can change or remove afterwards like any other. We do not
+      receive your Facebook password, your friends list, your posts, or
+      anything else, and we never post anything to Facebook. Facebook will
+      know that you signed in to this game; what Facebook then does with that
+      is governed by
+      <a href="https://www.facebook.com/privacy/policy/">Facebook's own privacy
+      policy</a>. You can disconnect by deleting your account (see below).</li>
   <li><strong>Game data.</strong> Your chosen in-game nickname, match results and
-      moves, in-match reaction emotes, in-game token and gem balances, rating,
+      moves, in-match reaction emotes, in-game token balances, rating,
       records of in-game purchases (made with in-game currency only), and
       (where used) friend and guild membership. All in-game currency is earned
       inside the game — there are no real-money purchases. Tokens can be earned
@@ -61,17 +77,64 @@ describes what data the game handles and how.</p>
       reports — tied only to the anonymous account identifier. This data is
       stored in our own backend (see below), is used solely to improve the
       game, is deleted with your account, and is retained for at most 90
-      days.</li>
+      days. A copy of these usage events (never the error reports) is also
+      processed for us by an analytics service &mdash; see "Analytics"
+      below.</li>
+  <li><strong>Crash diagnostics.</strong> If the game crashes or hits a serious
+      error, a diagnostic report is sent to <strong>Sentry</strong> so the fault
+      can be found and fixed. A report contains the error and the code path that
+      produced it, the app version, and the device model and operating system
+      version. It is tied to the anonymous account identifier only. No
+      screenshot and no picture of the screen's contents is ever attached, and
+      no nickname, photo or message is included. Nothing is sent before you
+      accept this policy on first launch.</li>
 </ul>
 
 <h2>What we do not collect</h2>
 <p>No email, phone number, or contacts, and no <em>precise</em> location — no
 GPS, no IP-based geolocation, nothing finer than the country-level region
 setting described above, which you control in your OS settings. No third-party
-analytics or tracking SDKs — the telemetry above is collected by the game
-itself and never shared. We do not collect advertising identifiers ourselves;
-the ad network described below processes device identifiers only when you
-choose to watch an ad.</p>
+advertising or behavioural-tracking SDKs: the usage telemetry above is
+collected by the game itself, and the only third parties that receive anything
+about how the game runs are the analytics service and the crash-reporting
+service described below &mdash; the first receives usage events, the second
+receives faults, and neither receives anything before you accept this policy.
+If you connect
+Facebook, Facebook learns that you signed in and nothing else &mdash; no
+gameplay, no telemetry, no purchases &mdash; and if you do not connect it,
+Facebook is never contacted at all. We do not collect
+advertising identifiers ourselves; the ad network described below processes
+device identifiers only when you choose to watch an ad.</p>
+
+<h2>Crash reporting</h2>
+<p>Crash and error diagnostics are processed by <strong>Sentry</strong>
+(Functional Software, Inc.), which we use only to find and fix faults in the
+game. Reports are retained for at most 90 days. Sentry receives the IP address
+of the sending device as an unavoidable part of any network request; we
+configure it not to store personal data alongside a report, and we do not use
+it to identify players. See
+<a href="https://sentry.io/privacy/">Sentry's privacy policy</a>. Sentry and
+the analytics service below are the only third-party services that receive data
+about the running game, and neither receives anything until you have accepted
+this policy. (Facebook, if you connect
+it, receives nothing about the running game — only the fact that you signed in.
+The ad network below receives nothing unless you choose to watch an ad.)</p>
+
+<h2>Analytics</h2>
+<p>To understand how the game is used in aggregate — which screens are reached,
+where new players stop, whether an update helped — a copy of the usage
+telemetry described above is forwarded <em>from our own backend</em> to
+<strong>Mixpanel</strong>, an analytics service. There is no Mixpanel software
+inside the app. Mixpanel receives the anonymous account identifier, the event
+name and its properties, the country code from your device's region setting,
+and the app version and platform. It does <strong>not</strong> receive your IP
+address — our server sends a zeroed address in its place, which also disables
+Mixpanel's own location lookup — and it does not receive error reports. The
+data is stored on Mixpanel's European Union servers and is deleted there
+automatically after at most 12 months. Nothing is forwarded before you accept
+this policy on first launch. See
+<a href="https://mixpanel.com/legal/privacy-policy/">Mixpanel's privacy
+policy</a>.</p>
 
 <h2>Advertising</h2>
 <p>The game offers <strong>optional rewarded video ads</strong>: watching an ad
@@ -99,7 +162,9 @@ servers in the European Union (Frankfurt, Germany), and is used only to run the
 game (matchmaking, match state, balances, ratings). Like any hosting provider,
 Supabase keeps short-lived infrastructure request logs that include the IP
 address and browser/device signature of each request; we do not use these to
-identify players, and they age out on the provider's schedule. Unity Ads (see
+identify players, and they age out on the provider's schedule. Usage telemetry
+forwarded to Mixpanel (see "Analytics") is likewise stored in the European
+Union, under Mixpanel's EU data-residency programme. Unity Ads (see
 "Advertising") processes its data under its own policy, which may involve
 transfers outside the EU under standard contractual clauses. Your data is never
 sold, and never shared with third parties for marketing.</p>
@@ -108,12 +173,16 @@ sold, and never shared with third parties for marketing.</p>
 <p>You can delete your account at any time from inside the game:
 <strong>Lobby → SETTINGS → DELETE ACCOUNT</strong>. Deletion is immediate and
 permanent: the account identifier, balances, rating, country code, match
-history, chat, emotes, telemetry, purchase records, photo, friends, blocks and
-guild membership are all erased. Two narrow exceptions remain for a limited
+history, chat, emotes, telemetry, purchase records, photo, friends, blocks,
+guild membership and any connected Facebook identifier are all erased. Three
+narrow exceptions remain for a limited
 time: <strong>moderation reports</strong> are kept up to <strong>180
 days</strong> (so that deleting an account cannot erase the moderation queue)
-and are then deleted automatically, and provider infrastructure logs age out
-on the provider's schedule. You can also request deletion without the app —
+and are then deleted automatically, provider infrastructure logs age out
+on the provider's schedule, and the copy of usage events already forwarded to
+Mixpanel — tied only to the now-deleted anonymous identifier — is deleted
+automatically at the end of its retention window (see "Analytics").
+You can also request deletion without the app —
 see the <a href="delete-account.html">account deletion page</a>.</p>
 
 <h2>Your rights</h2>
@@ -145,14 +214,26 @@ and we will delete the child's account and all its data.</p>
 
 <div class="he" dir="rtl" lang="he">
 <h1>RPSKill — מדיניות פרטיות</h1>
-<p class="updated">גרסה 1.1 — עודכן לאחרונה: 9 באוגוסט 2026</p>
+<p class="updated">גרסה 1.6 — עודכן לאחרונה: 12 באוגוסט 2026</p>
 
 <h2>מה אנחנו אוספים</h2>
 <ul>
   <li><strong>חשבון אנונימי.</strong> בהפעלה הראשונה נוצר חשבון אנונימי (מזהה
       אקראי). לא נאספים אימייל, טלפון, שם או סיסמה, ואין צורך בהרשמה.</li>
+  <li><strong>חיבור לפייסבוק, רק אם בחרתם בכך.</strong> החיבור לפייסבוק הוא
+      אופציונלי לחלוטין — המשחק פועל במלואו בלעדיו, ואיש אינו מבקש מכם
+      להתחבר. מטרתו היחידה היא לאפשר לכם לשמור על החשבון אם הטלפון אבד או
+      הוחלף, משום שחשבון אנונימי חי על המכשיר ואין דרך לשחזר אותו — גם לא
+      לנו. אם תתחברו, נקבל מפייסבוק את מזהה המשתמש שלכם בפייסבוק, את השם ואת
+      תמונת הפרופיל, ונשמור את המזהה לצד החשבון הקיים. השם משמש ככינוי שלכם
+      במשחק והתמונה כתמונת הפרופיל במשחק, ואפשר לשנות או להסיר את שניהם
+      אחר כך כמו כל שם או תמונה אחרים. איננו מקבלים את הסיסמה שלכם, את רשימת
+      החברים, את הפוסטים או כל דבר אחר, ולעולם איננו מפרסמים דבר בפייסבוק.
+      פייסבוק תדע שהתחברתם למשחק הזה; מה שפייסבוק עושה עם זה כפוף
+      <a href="https://www.facebook.com/privacy/policy/">למדיניות הפרטיות של
+      פייסבוק</a>. אפשר לנתק את החיבור על ידי מחיקת החשבון (ראו למטה).</li>
   <li><strong>נתוני משחק.</strong> הכינוי שבחרת, תוצאות ומהלכי משחקים,
-      אימוג'י תגובה במשחק, יתרות מטבעות ויהלומים, דירוג, תיעוד רכישות בתוך
+      אימוג'י תגובה במשחק, יתרות מטבעות, דירוג, תיעוד רכישות בתוך
       המשחק (במטבע המשחק בלבד), וחברות בחברים/גילדות. כל המטבעות מורווחים
       בתוך המשחק — אין רכישות בכסף אמיתי. אפשר להרוויח TOKENS מהמשחק עצמו או
       מצפייה מרצון בפרסומת מתוגמלת (ראו "פרסומות" למטה).</li>
@@ -176,16 +257,56 @@ and we will delete the child's account and all its data.</p>
   <li><strong>טלמטריית שימוש.</strong> המשחק מתעד אירועי שימוש עצמיים —
       מסכים שנצפו, תוצאות קרבות, אורך סשן ודיווחי שגיאות — הקשורים אך ורק
       למזהה החשבון האנונימי. המידע נשמר בתשתית שלנו (ראו למטה), משמש רק
-      לשיפור המשחק, נמחק יחד עם החשבון, ונשמר לכל היותר 90 יום.</li>
+      לשיפור המשחק, נמחק יחד עם החשבון, ונשמר לכל היותר 90 יום. עותק של
+      אירועי השימוש (ולעולם לא דיווחי השגיאות) מעובד עבורנו גם על ידי שירות
+      אנליטיקה — ראו "אנליטיקה" למטה.</li>
+  <li><strong>דיווחי קריסה.</strong> אם המשחק קורס או נתקל בשגיאה חמורה, נשלח
+      דיווח אבחון לשירות <strong>Sentry</strong> כדי שנוכל לאתר ולתקן את
+      התקלה. הדיווח כולל את השגיאה ואת נתיב הקוד שיצר אותה, את גרסת
+      האפליקציה, ואת דגם המכשיר וגרסת מערכת ההפעלה. הוא מקושר אך ורק למזהה
+      החשבון האנונימי. לעולם לא מצורפת תמונת מסך או צילום כלשהו של תוכן
+      המסך, ואין בו כינוי, תמונה או הודעה. שום דבר אינו נשלח לפני שאישרתם את
+      המדיניות הזו בהפעלה הראשונה.</li>
 </ul>
 
 <h2>מה אנחנו לא אוספים</h2>
 <p>לא אימייל, לא טלפון, לא אנשי קשר, ולא מיקום <em>מדויק</em> — לא GPS, לא
 איתור לפי IP, ושום דבר מעבר לקוד המדינה מהגדרת האזור שתואר למעלה, שבשליטתכם
-בהגדרות המכשיר. אין כלי אנליטיקה או מעקב של צד שלישי — הטלמטריה שלמעלה
-נאספת על ידי המשחק עצמו ואינה משותפת עם אף גורם. אנחנו עצמנו לא אוספים
-מזהי פרסום; רשת הפרסומות המתוארת למטה מעבדת מזהי מכשיר רק כשבחרת לצפות
-בפרסומת.</p>
+בהגדרות המכשיר. אין כלי פרסום או מעקב התנהגותי של צד שלישי: טלמטריית השימוש
+שלמעלה נאספת על ידי המשחק עצמו, והצדדים השלישיים היחידים שמקבלים מידע כלשהו
+על אופן ריצת המשחק הם שירות האנליטיקה ושירות דיווח הקריסות המתוארים למטה —
+הראשון מקבל אירועי שימוש, השני תקלות, ואף אחד מהם אינו מקבל דבר לפני
+שאישרתם את המדיניות. אם תחברו את פייסבוק, פייסבוק תדע שהתחברתם ותו
+לא — לא מהלכי משחק, לא טלמטריה ולא רכישות — ואם לא תחברו, לא נוצר קשר עם
+פייסבוק כלל. אנחנו עצמנו לא אוספים מזהי פרסום; רשת הפרסומות
+המתוארת למטה מעבדת מזהי מכשיר רק כשבחרת לצפות בפרסומת.</p>
+
+<h2>דיווח קריסות</h2>
+<p>אבחון קריסות ושגיאות מעובד על ידי <strong>Sentry</strong> ‏(Functional
+Software, Inc.), ואנחנו משתמשים בו רק כדי לאתר ולתקן תקלות במשחק. הדיווחים
+נשמרים לכל היותר 90 יום. ‏Sentry מקבלת את כתובת ה-IP של המכשיר השולח כחלק
+בלתי נמנע מכל בקשת רשת; אנחנו מגדירים אותה שלא לשמור מידע אישי לצד הדיווח,
+ואיננו משתמשים בכתובת כדי לזהות שחקנים. ראו את
+<a href="https://sentry.io/privacy/">מדיניות הפרטיות של Sentry</a>. ‏Sentry
+ושירות האנליטיקה שלמטה הם שירותי הצד השלישי היחידים שמקבלים נתונים על המשחק
+בזמן ריצה, ואף אחד מהם אינו מקבל דבר לפני שאישרתם את המדיניות. (פייסבוק, אם
+חיברתם אותה, אינה מקבלת דבר על המשחק בזמן
+ריצה — רק את עצם ההתחברות. רשת הפרסומות שלמטה אינה מקבלת דבר אלא אם בחרתם
+לצפות בפרסומת.)</p>
+
+<h2>אנליטיקה</h2>
+<p>כדי להבין איך משחקים במשחק במבט מצרפי — לאילו מסכים מגיעים, איפה שחקנים
+חדשים עוצרים, האם עדכון עזר — עותק של טלמטריית השימוש שתוארה למעלה מועבר
+<em>מהשרת שלנו</em> אל <strong>Mixpanel</strong>, שירות אנליטיקה. אין תוכנה
+של Mixpanel בתוך האפליקציה. ‏Mixpanel מקבלת את מזהה החשבון האנונימי, את שם
+האירוע ומאפייניו, את קוד המדינה מהגדרת האזור של המכשיר, ואת גרסת האפליקציה
+והפלטפורמה. היא <strong>אינה</strong> מקבלת את כתובת ה-IP שלכם — השרת שלנו
+שולח במקומה כתובת מאופסת, מה שמנטרל גם את איתור המיקום של Mixpanel עצמה —
+ואינה מקבלת דיווחי שגיאות. המידע נשמר בשרתי Mixpanel באיחוד האירופי ונמחק
+שם אוטומטית אחרי 12 חודשים לכל היותר. שום דבר אינו מועבר לפני שאישרתם את
+המדיניות הזו בהפעלה הראשונה. ראו את
+<a href="https://mixpanel.com/legal/privacy-policy/">מדיניות הפרטיות של
+Mixpanel</a>.</p>
 
 <h2>פרסומות</h2>
 <p>המשחק מציע <strong>פרסומות וידאו מתוגמלות, בבחירתך בלבד</strong>: הצפייה
@@ -209,7 +330,9 @@ and we will delete the child's account and all its data.</p>
 באיחוד האירופי (פרנקפורט, גרמניה), ומשמשים אך ורק להפעלת המשחק. כמו כל ספק
 אחסון, Supabase מחזיק יומני בקשות תשתית קצרי-חיים הכוללים כתובת IP וחתימת
 דפדפן/מכשיר; איננו משתמשים בהם לזיהוי שחקנים, והם נמחקים לפי לוח הזמנים של
-הספק. Unity Ads (ראו "פרסומות") מעבדת את נתוניה לפי מדיניותה שלה, שעשויה
+הספק. טלמטריית השימוש המועברת ל-Mixpanel (ראו "אנליטיקה") נשמרת גם היא
+באיחוד האירופי, במסגרת תוכנית ה-EU data residency של Mixpanel.
+‏Unity Ads (ראו "פרסומות") מעבדת את נתוניה לפי מדיניותה שלה, שעשויה
 לכלול העברות אל מחוץ לאיחוד האירופי תחת סעיפים חוזיים סטנדרטיים. הנתונים
 שלכם לעולם לא נמכרים ולא משותפים לצרכי שיווק.</p>
 
@@ -217,11 +340,13 @@ and we will delete the child's account and all its data.</p>
 <p>אפשר למחוק את החשבון בכל רגע מתוך המשחק:
 <strong>לובי ← SETTINGS ← DELETE ACCOUNT</strong>. המחיקה מיידית וסופית:
 מזהה החשבון, היתרות, הדירוג, קוד המדינה, היסטוריית המשחקים, הצ'אט,
-האימוג'ים, הטלמטריה, תיעוד הרכישות, התמונה, החברים, החסימות והגילדה — הכול
-נמחק. שני חריגים צרים נשמרים לזמן מוגבל: <strong>דיווחי מודרציה</strong>
+האימוג'ים, הטלמטריה, תיעוד הרכישות, התמונה, החברים, החסימות, הגילדה וכל מזהה
+פייסבוק מחובר — הכול נמחק. שלושה חריגים צרים נשמרים לזמן מוגבל: <strong>דיווחי מודרציה</strong>
 נשמרים עד <strong>180 יום</strong> (כדי שמחיקת חשבון לא תוכל למחוק את תור
-המודרציה) ואז נמחקים אוטומטית, ויומני תשתית של הספק שנמחקים לפי לוח הזמנים
-שלו. אפשר גם לבקש מחיקה ללא האפליקציה — ראו את
+המודרציה) ואז נמחקים אוטומטית, יומני תשתית של הספק שנמחקים לפי לוח הזמנים
+שלו, ועותק אירועי השימוש שכבר הועבר ל-Mixpanel — הקשור אך ורק למזהה האנונימי
+שנמחק זה עתה — שנמחק אוטומטית בתום חלון השמירה שלו (ראו "אנליטיקה").
+אפשר גם לבקש מחיקה ללא האפליקציה — ראו את
 <a href="delete-account.html">עמוד מחיקת החשבון</a>.</p>
 
 <h2>הזכויות שלכם</h2>
